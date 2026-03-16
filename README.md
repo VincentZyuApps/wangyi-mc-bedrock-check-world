@@ -1,3 +1,5 @@
+![wangyi-mc-bedrock-check-world](https://socialify.git.ci/VincentZyu233/wangyi-mc-bedrock-check-world/image?description=1&font=KoHo&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2Fgist%2FXainey%2Fd5bde7d01dcbac51ac951810e94313aa%2Fraw%2F6c858c46726541b48ddaaebab29c41c07a196394%2FPowerShell.svg&name=1&owner=1&pattern=Signal&stargazers=1&theme=Auto)
+
 # Minecraft 网易版存档列表工具
 
 [![Gitee](https://img.shields.io/badge/Gitee-Repository-red?logo=gitee)](https://gitee.com/vincent-zyu/wangyi-mc-bedrock-check-world)
@@ -10,12 +12,22 @@
 ### 方式 1：直接通过网络运行 (无需下载)
 你可以直接远程读取并执行脚本，无需手动下载文件：
 
+#### 使用 Python (推荐)
 ```powershell
 # 从 GitHub 运行
 irm https://raw.githubusercontent.com/VincentZyu233/wangyi-mc-bedrock-check-world/main/list.py | python
 
 # 从 Gitee 运行 (如果 GitHub 访问慢)
 irm https://gitee.com/vincent-zyu/wangyi-mc-bedrock-check-world/raw/main/list.py | python
+```
+
+#### 使用 PowerShell (如果你没有安装 Python)
+```powershell
+# 从 GitHub 运行
+irm https://raw.githubusercontent.com/VincentZyu233/wangyi-mc-bedrock-check-world/main/list.ps1 | iex
+
+# 从 Gitee 运行
+irm https://gitee.com/vincent-zyu/wangyi-mc-bedrock-check-world/raw/main/list.ps1 | iex
 ```
 
 ### 方式 2：Git Clone 运行
@@ -25,12 +37,16 @@ irm https://gitee.com/vincent-zyu/wangyi-mc-bedrock-check-world/raw/main/list.py
 # 从 GitHub 克隆
 git clone https://github.com/VincentZyu233/wangyi-mc-bedrock-check-world.git
 cd wangyi-mc-bedrock-check-world
+# 运行 py 或 ps1
 python .\list.py
+.\list.ps1
 
 # 从 Gitee 克隆
 git clone https://gitee.com/vincent-zyu/wangyi-mc-bedrock-check-world.git
 cd wangyi-mc-bedrock-check-world
+# 运行 py 或 ps1
 python .\list.py
+.\list.ps1
 ```
 
 ## 功能
