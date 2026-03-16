@@ -6,6 +6,7 @@
 """
 
 import os
+import argparse
 from datetime import datetime
 
 # 网易我的世界电脑版存档固定路径：%APPDATA%\MinecraftPC_Netease_PB\minecraftWorlds
@@ -57,6 +58,31 @@ def format_size(size_bytes):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="列出 Minecraft 基岩版（网易）存档信息")
+    parser.add_argument("--no-color", action="store_true", help="禁用颜色输出")
+    parser.add_argument("--no-emoji", action="store_true", help="禁用 Emoji 输出")
+    args = parser.parse_args()
+
+    # ANSI 颜色转义码
+    if args.no_color:
+        CYAN = GREEN = YELLOW = BLUE = MAGENTA = RESET = BOLD = ""
+    else:
+        CYAN = "\033[36m"
+        GREEN = "\033[32m"
+        YELLOW = "\033[33m"
+        BLUE = "\033[34m"
+        MAGENTA = "\033[35m"
+        RESET = "\033[0m"
+        BOLD = "\033[1m"
+
+    emoji_folder = "📂 " if not args.no_emoji else ""
+    emoji_list = "📜 " if not args.no_emoji else ""
+    emoji_world = "🌍 " if not args.no_emoji else ""
+    emoji_time = "🕒 " if not args.no_emoji else ""
+    emoji_size = "💾 " if not args.no_emoji else ""
+    emoji_count = "📊 " if not args.no_emoji else ""
+
+    print(f"\n  {BLUE}{emoji_folder}正在读取存档目录:{RESET} {CYAN}{WORLDS_DIR}{RESET}\n")
     worlds = []
 
     for entry in os.listdir(WORLDS_DIR):
@@ -90,12 +116,12 @@ def main():
     max_folder = max(max_folder, 8)   # "文件夹名" 占位
     max_name = max(max_name, 20)      # "世界名称" 占位
 
-    header_folder = pad_string("文件夹名", max_folder)
-    header_name = pad_string("世界名称", max_name)
-    header_time = "最后保存时间".ljust(19)
-    header_size = "大小"
+    header_folder = pad_string(f"{emoji_list}文件夹名", max_folder + (get_width(emoji_list) if not args.no_emoji else 0))
+    header_name = pad_string(f"{emoji_world}世界名称", max_name + (get_width(emoji_world) if not args.no_emoji else 0))
+    header_time = f"{emoji_time}最后保存时间".ljust(19 + (get_width(emoji_time) if not args.no_emoji else 0))
+    header_size = f"{emoji_size}大小"
 
-    print(f"  {'序号':>4}  {header_folder}  {header_name}  {header_time}  {header_size}")
+    print(f"  {BOLD}{'序号':>4}  {header_folder}  {header_name}  {header_time}  {header_size}{RESET}")
     print(f"  {'─' * 4}  {'─' * max_folder}  {'─' * max_name}  {'─' * 19}  {'─' * 10}")
 
     for i, w in enumerate(worlds, 1):
@@ -103,9 +129,17 @@ def main():
         name = pad_string(w["name"], max_name)
         time_str = (w["last_saved"].strftime("%Y-%m-%d %H:%M:%S") if w["last_saved"] else "未知").ljust(19)
         size_str = format_size(w["size"])
-        print(f"  {i:>4}  {folder}  {name}  {time_str}  {size_str}")
 
-    print(f"\n  共 {len(worlds)} 个存档")
+        # 斑马纹或高亮处理
+        idx_str = f"{YELLOW}{i:>4}{RESET}"
+        folder_str = f"{CYAN}{folder}{RESET}"
+        name_str = f"{GREEN}{name}{RESET}"
+        time_out = f"{MAGENTA}{time_str}{RESET}"
+        size_out = f"{YELLOW}{size_str}{RESET}"
+
+        print(f"  {idx_str}  {folder_str}  {name_str}  {time_out}  {size_out}")
+
+    print(f"\n  {BLUE}{emoji_count}共 {len(worlds)} 个存档{RESET}\n")
 
 
 if __name__ == "__main__":
