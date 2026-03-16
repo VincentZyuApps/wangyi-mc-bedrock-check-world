@@ -1,7 +1,13 @@
+#Requires -Version 5.1
 <#
 .SYNOPSIS
-    列出 Minecraft 基岩版（网易）存档信息。
-    支持颜色输出、Emoji 标识、手动对齐。
+    List Minecraft Bedrock (NetEase) world saves.
+.DESCRIPTION
+    Displays folder name, world name, last saved time, and size for each save.
+.PARAMETER NoColor
+    Disable colored output.
+.PARAMETER NoEmoji
+    Disable emoji icons.
 #>
 
 param (
@@ -9,23 +15,23 @@ param (
     [switch]$NoEmoji
 )
 
-# 存档目录
+# Save directory
 $WorldsDir = "$env:APPDATA\MinecraftPC_Netease_PB\minecraftWorlds"
 
 if (-not (Test-Path $WorldsDir)) {
-    Write-Error "找不到存档目录: $WorldsDir"
-    exit
+    Write-Error "Cannot find save directory: $WorldsDir"
+    exit 1
 }
 
-# 定义 Emoji
-$eFolder = if ($NoEmoji) { "" } else { "📂 " }
-$eList   = if ($NoEmoji) { "" } else { "📜 " }
-$eWorld  = if ($NoEmoji) { "" } else { "🌍 " }
-$eTime   = if ($NoEmoji) { "" } else { "🕒 " }
-$eSize   = if ($NoEmoji) { "" } else { "💾 " }
-$eCount  = if ($NoEmoji) { "" } else { "📊 " }
+# Define Emoji (using Unicode escape sequences for compatibility)
+$eFolder = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F4C2) + " " }  # Folder
+$eList   = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F4DC) + " " }  # Scroll
+$eWorld  = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F30D) + " " }  # Globe
+$eTime   = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F552) + " " }  # Clock
+$eSize   = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F4BE) + " " }  # Floppy
+$eCount  = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F4CA) + " " }  # Chart
 
-# 颜色设置（PowerShell 原生支持 Write-Host -ForegroundColor）
+# Color output function
 function Write-Color {
     param($Text, $Color = "White", [switch]$NoNewLine)
     if ($NoColor) {
@@ -36,11 +42,11 @@ function Write-Color {
 }
 
 Write-Host ""
-Write-Color "  $eFolder 正在读取存档目录: " -Color Blue -NoNewLine
+Write-Color "  $($eFolder)Reading save directory: " -Color Blue -NoNewLine
 Write-Color $WorldsDir -Color Cyan
 Write-Host "`n"
 
-# 计算文件夹大小的函数
+# Calculate folder size
 function Get-FolderSize([string]$Path) {
     try {
         $files = Get-ChildItem -Path $Path -Recurse -File -ErrorAction SilentlyContinue
@@ -51,15 +57,15 @@ function Get-FolderSize([string]$Path) {
     }
 }
 
-# 格式化大小
+# Format size to human readable
 function Format-Size([long]$Bytes) {
-    if ($Bytes -lt 1KB) { return "{0:N2} B" -f $Bytes }
-    if ($Bytes -lt 1MB) { return "{0:N2} KB" -f ($Bytes / 1KB) }
-    if ($Bytes -lt 1GB) { return "{0:N2} MB" -f ($Bytes / 1MB) }
-    return "{0:N2} GB" -f ($Bytes / 1GB)
+    if ($Bytes -lt 1KB) { return "{0,6:N2} B" -f $Bytes }
+    if ($Bytes -lt 1MB) { return "{0,6:N2} KB" -f ($Bytes / 1KB) }
+    if ($Bytes -lt 1GB) { return "{0,6:N2} MB" -f ($Bytes / 1MB) }
+    return "{0,6:N2} GB" -f ($Bytes / 1GB)
 }
 
-# 获取字符显示宽度（简单处理中文）
+# Get display width (CJK chars = 2, others = 1)
 function Get-DisplayWidth([string]$s) {
     $width = 0
     foreach ($char in $s.ToCharArray()) {
@@ -68,7 +74,7 @@ function Get-DisplayWidth([string]$s) {
     return $width
 }
 
-# 填充字符串到指定宽度
+# Pad string to specified width
 function Pad-String([string]$s, [int]$width) {
     $currentWidth = Get-DisplayWidth $s
     $padding = $width - $currentWidth
@@ -78,7 +84,7 @@ function Pad-String([string]$s, [int]$width) {
 
 $worlds = @()
 
-# 遍历目录
+# Iterate directories
 Get-ChildItem -Path $WorldsDir -Directory | ForEach-Object {
     $folderName = $_.Name
     $fullPath = $_.FullName
@@ -99,37 +105,37 @@ Get-ChildItem -Path $WorldsDir -Directory | ForEach-Object {
     }
 }
 
-# 排序
+# Sort by last saved time descending
 $worlds = $worlds | Sort-Object LastSaved -Descending
 
 if ($worlds.Count -eq 0) {
-    Write-Host "  未发现有效存档。"
-    exit
+    Write-Host "  No valid saves found."
+    exit 0
 }
 
-# 计算最大宽度
+# Calculate max widths
 $maxFolderWidth = ($worlds | ForEach-Object { Get-DisplayWidth $_.Folder } | Measure-Object -Maximum).Maximum
-if ($maxFolderWidth -lt 8) { $maxFolderWidth = 8 }
+if ($maxFolderWidth -lt 12) { $maxFolderWidth = 12 }
 
 $maxNameWidth = ($worlds | ForEach-Object { Get-DisplayWidth $_.Name } | Measure-Object -Maximum).Maximum
 if ($maxNameWidth -lt 20) { $maxNameWidth = 20 }
 
-# 打印表头
-$hFolder = Pad-String ("$eList 文件夹名") ($maxFolderWidth + (if ($NoEmoji) {0} else {2}))
-$hName   = Pad-String ("$eWorld 世界名称") ($maxNameWidth + (if ($NoEmoji) {0} else {2}))
-$hTime   = ("$eTime 最后保存时间").PadRight(19 + (if ($NoEmoji) {0} else {2}))
-$hSize   = "$eSize 大小"
+# Print header
+$hFolder = Pad-String "Folder" $maxFolderWidth
+$hName   = Pad-String "World Name" $maxNameWidth
+$hTime   = "Last Saved".PadRight(19)
+$hSize   = "Size"
 
-Write-Color "  序号  $hFolder  $hName  $hTime  $hSize" -Color White
+Write-Color "  No.   $hFolder  $hName  $hTime  $hSize" -Color White
 Write-Host "  ----  $('-' * $maxFolderWidth)  $('-' * $maxNameWidth)  $('-' * 19)  $('-' * 10)"
 
-# 打印数据
+# Print data rows
 $i = 1
 foreach ($w in $worlds) {
     $idx = "$i".PadLeft(4)
     $folder = Pad-String $w.Folder $maxFolderWidth
     $name = Pad-String $w.Name $maxNameWidth
-    $timeStr = if ($null -ne $w.LastSaved) { $w.LastSaved.ToString("yyyy-MM-dd HH:mm:ss") } else { "未知" }
+    $timeStr = if ($null -ne $w.LastSaved) { $w.LastSaved.ToString("yyyy-MM-dd HH:mm:ss") } else { "Unknown" }
     $timeStr = $timeStr.PadRight(19)
     $sizeStr = Format-Size $w.Size
 
@@ -146,4 +152,4 @@ foreach ($w in $worlds) {
 }
 
 Write-Host ""
-Write-Color "  $eCount 共 $($worlds.Count) 个存档`n" -Color Blue
+Write-Color "  $($eCount)Total: $($worlds.Count) saves`n" -Color Blue
