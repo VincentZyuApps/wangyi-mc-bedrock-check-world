@@ -6,8 +6,14 @@ List Minecraft Bedrock (NetEase) world saves:
 """
 
 import os
+import sys
+import io
 import argparse
 from datetime import datetime
+
+# Force UTF-8 output encoding (for Windows console compatibility)
+if sys.stdout.encoding.lower() != 'utf-8':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
 # NetEase Minecraft PC save directory: %APPDATA%\MinecraftPC_Netease_PB\minecraftWorlds
 WORLDS_DIR = os.path.join(os.environ["APPDATA"], "MinecraftPC_Netease_PB", "minecraftWorlds")
@@ -129,7 +135,7 @@ def main():
     header_size = f"{emoji_size}Size"
 
     print(f"  {BOLD}No.   {header_folder}  {header_name}  {header_time}  {header_size}{RESET}")
-    print(f"  ----  {'─' * max_folder}  {'─' * max_name}  {'─' * 19}  {'─' * 10}")
+    print(f"  ----  {'-' * max_folder}  {'-' * max_name}  {'-' * 19}  {'-' * 10}")
 
     for i, w in enumerate(worlds, 1):
         folder = pad_string(w["folder"], max_folder)

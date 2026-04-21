@@ -87,14 +87,14 @@ pwd
 ```
 > like this: 
 > 
-> ![powershell_env.png](powershell_env.png)
+> ![env_powershell.png](env_powershell.png)
 
 CMD也是可以的哈:
 ```shell
 # 查看 APPDATA 路径
 echo %APPDATA%
 # 直接切换到网易版 Minecraft 存档目录
-cd %APPDATA%
+cd %APPDATA%\MinecraftPC_Netease_PB\minecraftWorlds
 # 看一下多少存档
 dir
 # 打印一下当前绝对路径
@@ -103,5 +103,5 @@ cd
 
 > like this: 
 > 
-> ![cmd_env.png](cmd_env.png)
+> ![env_cmd.png](env_cmd.png)
 
