@@ -62,3 +62,44 @@ python .\list.py
 - 显示最后保存时间（`level.dat` 修改时间）
 - 计算并显示每个存档文件夹的总大小
 - 自动处理中英文字符对齐问题
+
+--- 
+
+## 💡 科普：%APPDATA% 环境变量
+
+在 Windows 中，`%APPDATA%` 是一个系统环境变量，指向当前用户的应用数据目录：
+
+```
+C:\Users\你的用户名\AppData\Roaming
+```
+
+你可以直接在 PowerShell 中使用它来快速定位目录：
+
+```powershell
+# for example: 查看 APPDATA 路径
+$env:APPDATA
+# 直接切换到网易版 Minecraft 存档目录
+cd "$env:APPDATA\MinecraftPC_Netease_PB\minecraftWorlds"
+# 看一下多少存档
+ls
+# 打印一下当前绝对路径
+pwd
+```
+> like this:
+> ![powershell_env.png](powershell_env.png)
+
+CMD也是可以的哈:
+```shell
+# 查看 APPDATA 路径
+echo %APPDATA%
+# 直接切换到网易版 Minecraft 存档目录
+cd %APPDATA%
+# 看一下多少存档
+dir
+# 打印一下当前绝对路径
+cd
+```
+
+> like this:
+> ![cmd_env.png](cmd_env.png)
+

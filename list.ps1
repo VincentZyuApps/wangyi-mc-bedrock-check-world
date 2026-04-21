@@ -23,13 +23,19 @@ if (-not (Test-Path $WorldsDir)) {
     exit 1
 }
 
-# Define Emoji (using Unicode escape sequences for compatibility)
-$eFolder = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F4C2) + " " }  # Folder
-$eList   = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F4DC) + " " }  # Scroll
-$eWorld  = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F30D) + " " }  # Globe
-$eTime   = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F552) + " " }  # Clock
-$eSize   = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F4BE) + " " }  # Floppy
-$eCount  = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F4CA) + " " }  # Chart
+# Define Emoji icons (Unicode escape sequences for compatibility)
+# 📂 Folder (U+1F4C2)
+$eFolder = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F4C2) + " " }
+# 📜 Scroll (U+1F4DC)
+$eList   = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F4DC) + " " }
+# 🌍 Globe (U+1F30D)
+$eWorld  = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F30D) + " " }
+# 🕒 Clock (U+1F552)
+$eTime   = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F552) + " " }
+# 💾 Floppy disk (U+1F4BE)
+$eSize   = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F4BE) + " " }
+# 📊 Chart (U+1F4CA)
+$eCount  = if ($NoEmoji) { "" } else { [char]::ConvertFromUtf32(0x1F4CA) + " " }
 
 # Color output function
 function Write-Color {
