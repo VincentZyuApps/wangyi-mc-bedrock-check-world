@@ -1,6 +1,6 @@
 ![wangyi-mc-bedrock-check-world](https://socialify.git.ci/VincentZyu233/wangyi-mc-bedrock-check-world/image?description=1&font=KoHo&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2Fgist%2FXainey%2Fd5bde7d01dcbac51ac951810e94313aa%2Fraw%2F6c858c46726541b48ddaaebab29c41c07a196394%2FPowerShell.svg&name=1&owner=1&pattern=Signal&stargazers=1&theme=Auto)
 
-# Minecraft 网易版存档列表工具
+# Minecraft 网易版存档列表脚本
 
 [![Gitee](https://img.shields.io/badge/Gitee-Repository-red?logo=gitee)](https://gitee.com/vincent-zyu/wangyi-mc-bedrock-check-world)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/VincentZyu233/wangyi-mc-bedrock-check-world)
@@ -85,7 +85,8 @@ ls
 # 打印一下当前绝对路径
 pwd
 ```
-> like this:
+> like this: 
+> 
 > ![powershell_env.png](powershell_env.png)
 
 CMD也是可以的哈:
@@ -100,6 +101,7 @@ dir
 cd
 ```
 
-> like this:
+> like this: 
+> 
 > ![cmd_env.png](cmd_env.png)
 
