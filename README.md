@@ -9,18 +9,6 @@
 > 由于脚本中使用了绝对路径（通过 `%APPDATA%` 获取），你可以将此脚本放在任何地方执行，它都能正确找到并运行捏。
 > 如果你更喜欢GUI(图形用户接口界面)，可以去这里：`https://github.com/VincentZyuApps/wangyi-mc-bedrock-check-world`
 
-## 🔎 Inspect 交互式工具
-
-如果你想进一步查看 `level.dat`、`config`、玩家状态、背包内容、`db` 模式分类这些更深入的信息，可以看这里：
-
-- [inspect/README.md](inspect/README.md)
-
-这里收敛了一套交互式 Python 工具，支持：
-- ⬆️⬇️ 上下键 + 回车选择存档
-- 🔢 `--index` 按顺序选择
-- 📁 `--folder` 按文件夹名直接选择
-- 🧾 `--json` 输出结构化结果
-
 ## 🖼️ 效果预览
 
 ![preview.png](preview.png)
@@ -119,3 +107,16 @@ cd
 > 
 > ![env_cmd.png](env_cmd.png)
 
+---
+
+## 🔎 Inspect 交互式工具
+
+如果你想进一步查看 `level.dat`、`config`、玩家状态、背包内容、`db` 模式分类这些更深入的信息，可以看这里：
+
+- [inspect/README.md](inspect/README.md)
+
+这里收敛了一套交互式 Python 工具，支持：
+- ⬆️⬇️ 上下键 + 回车选择存档
+- 🔢 `--index` 按顺序选择
+- 📁 `--folder` 按文件夹名直接选择
+- 🧾 `--json` 输出结构化结果

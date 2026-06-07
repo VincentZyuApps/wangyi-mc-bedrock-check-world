@@ -44,15 +44,15 @@ python .\inspect\01_world_overview.py
   直接输出结构化 JSON，适合保存结果、喂给别的脚本、或者后续做 GUI / 自动化处理
 
 ### 🔢 按顺序选
-
+比如：
 > `python .\inspect\02_leveldat_inspect.py --index 1`
 
 ### 📁 按文件夹名选
-
+比如：
 > `python .\inspect\03_player_inspect.py --folder "+f5urF+txhQ="`
 
 ### 🧾 输出 JSON
-
+比如：
 > `python .\inspect\04_inventory_inspect.py --index 1 --json`
 
 如果 `--index` 或 `--folder` 解析失败，脚本会回退到交互式选择，不会直接报错退出。
