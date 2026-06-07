@@ -1,6 +1,6 @@
 ![wangyi-mc-bedrock-check-world](https://socialify.git.ci/VincentZyu233/wangyi-mc-bedrock-check-world/image?description=1&font=KoHo&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2Fgist%2FXainey%2Fd5bde7d01dcbac51ac951810e94313aa%2Fraw%2F6c858c46726541b48ddaaebab29c41c07a196394%2FPowerShell.svg&name=1&owner=1&pattern=Signal&stargazers=1&theme=Auto)
 
-# Minecraft 网易版存档列表脚本
+# 🎮 Minecraft 网易版存档列表脚本
 
 [![Gitee](https://img.shields.io/badge/Gitee-Repository-red?logo=gitee)](https://gitee.com/vincent-zyu/wangyi-mc-bedrock-check-world)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/VincentZyu233/wangyi-mc-bedrock-check-world)
@@ -9,19 +9,31 @@
 > 由于脚本中使用了绝对路径（通过 `%APPDATA%` 获取），你可以将此脚本放在任何地方执行，它都能正确找到并运行捏。
 > 如果你更喜欢GUI(图形用户接口界面)，可以去这里：`https://github.com/VincentZyuApps/wangyi-mc-bedrock-check-world`
 
-## 效果预览
+## 🔎 Inspect 交互式工具
+
+如果你想进一步查看 `level.dat`、`config`、玩家状态、背包内容、`db` 模式分类这些更深入的信息，可以看这里：
+
+- [inspect/README.md](inspect/README.md)
+
+这里收敛了一套交互式 Python 工具，支持：
+- ⬆️⬇️ 上下键 + 回车选择存档
+- 🔢 `--index` 按顺序选择
+- 📁 `--folder` 按文件夹名直接选择
+- 🧾 `--json` 输出结构化结果
+
+## 🖼️ 效果预览
 
 ![preview.png](preview.png)
 
 ---
 
 
-## 运行方式 (PowerShell)
+## ▶️ 运行方式 (PowerShell)
 
-### 方式 1：直接通过网络运行 (无需下载)
+### 1️⃣ 方式 1：直接通过网络运行 (无需下载)
 你可以直接远程读取并执行脚本，无需手动下载文件：
 
-#### 使用 Python (推荐)
+#### 🐍 使用 Python (推荐)
 ```powershell
 # 从 GitHub 运行
 irm https://raw.githubusercontent.com/VincentZyu233/wangyi-mc-bedrock-check-world/main/list.py | python
@@ -30,7 +42,7 @@ irm https://raw.githubusercontent.com/VincentZyu233/wangyi-mc-bedrock-check-worl
 irm https://gitee.com/vincent-zyu/wangyi-mc-bedrock-check-world/raw/main/list.py | python
 ```
 
-#### 使用 PowerShell (如果你没有安装 Python)
+#### ⚡ 使用 PowerShell (如果你没有安装 Python)
 ```powershell
 # 从 GitHub 运行
 irm https://raw.githubusercontent.com/VincentZyu233/wangyi-mc-bedrock-check-world/main/list.ps1 | iex
@@ -39,7 +51,7 @@ irm https://raw.githubusercontent.com/VincentZyu233/wangyi-mc-bedrock-check-worl
 irm https://gitee.com/vincent-zyu/wangyi-mc-bedrock-check-world/raw/main/list.ps1 | iex
 ```
 
-### 方式 2：Git Clone 运行
+### 2️⃣ 方式 2：Git Clone 运行
 如果你想保留一份在本地：
 
 ```powershell
@@ -58,12 +70,12 @@ python .\list.py
 .\list.ps1
 ```
 
-## 功能
-- 列出存档文件夹名
-- 读取世界名称（`levelname.txt`）
-- 显示最后保存时间（`level.dat` 修改时间）
-- 计算并显示每个存档文件夹的总大小
-- 自动处理中英文字符对齐问题
+## ✨ 功能
+- 📂 列出存档文件夹名
+- 📝 读取世界名称（`levelname.txt`）
+- 🕒 显示最后保存时间（`level.dat` 修改时间）
+- 💾 计算并显示每个存档文件夹的总大小
+- 🔤 自动处理中英文字符对齐问题
 
 --- 
 
@@ -91,7 +103,7 @@ pwd
 > 
 > ![env_powershell.png](env_powershell.png)
 
-CMD也是可以的哈:
+🖥️ CMD 也是可以的哈:
 ```shell
 # 查看 APPDATA 路径
 echo %APPDATA%
