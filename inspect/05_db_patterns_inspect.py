@@ -35,7 +35,8 @@ def main() -> None:
     by_category = defaultdict(list)
     file_hits: dict[str, Counter[str]] = {}
     for path in sorted((world.path / "db").iterdir(), key=lambda p: p.name.lower()):
-        if path.suffix.lower() not in {".log", ".ldb"}:
+        suffix = path.suffix.lower()
+        if suffix != ".log" and not (args.debug and suffix == ".ldb"):
             continue
         seen = set()
         strings = []
@@ -55,6 +56,7 @@ def main() -> None:
     result = {
         "folder": world.folder,
         "world_name": world.name,
+        "mode": "debug" if args.debug else "default",
         "categories": {
             name: {"count": len(samples), "samples": samples}
             for name, samples in sorted(by_category.items())
@@ -68,17 +70,29 @@ def main() -> None:
 
     print(heading(f"DB Pattern Inspect | {world.name}"))
     print(f"📁 Folder: {world.folder}")
+    if not args.debug:
+        print("🐎 Mode: default (fast)")
+        print("💡 Tip: add --debug to include .ldb scan, uncategorized strings, and detailed per-file counts")
+    else:
+        print("🧪 Mode: debug (includes .ldb scan and noisier categories)")
     print(section("Categories", "🗂️"))
     for name, info in result["categories"].items():
+        if not args.debug and name == "uncategorized":
+            continue
         print(f"- {name}: {info['count']} sample strings")
         for sample in info["samples"][:12]:
             print(f"  {sample}")
-    print(section("Per-file counts", "📊"))
-    for name, counts in result["files"].items():
-        if not counts:
-            continue
-        joined = ", ".join(f"{key}={value}" for key, value in counts.items())
-        print(f"- {name}: {joined}")
+    if args.debug:
+        print(section("Per-file counts", "📊"))
+        for name, counts in result["files"].items():
+            if not counts:
+                continue
+            joined = ", ".join(f"{key}={value}" for key, value in counts.items())
+            print(f"- {name}: {joined}")
+    else:
+        print(section("Files scanned", "📊"))
+        print(f"- total files: {len(result['files'])}")
+        print(f"- scanned suffixes: .log")
 
 
 if __name__ == "__main__":

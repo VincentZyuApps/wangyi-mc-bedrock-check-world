@@ -79,6 +79,7 @@ def parse_common_args(description: str) -> argparse.ArgumentParser:
     parser.add_argument("--folder", help="Select world by folder name.")
     parser.add_argument("--worlds-root", type=Path, default=WORLD_ROOT)
     parser.add_argument("--json", action="store_true")
+    parser.add_argument("--debug", action="store_true", help="Show heavier and more detailed output.")
     return parser
 
 
@@ -142,7 +143,8 @@ def clear_rendered_lines(lines: int) -> None:
         print(CLEAR_LINE, end="")
         if i < lines - 1:
             print()
-    move_cursor_up(lines - 1)
+    if lines > 1:
+        move_cursor_up(lines - 1)
 
 
 def _read_key_windows() -> str:
@@ -180,7 +182,6 @@ def interactive_pick_world(worlds: list[WorldEntry]) -> WorldEntry:
             rendered_lines = render_picker_frame(worlds, selected)
         elif key == "enter":
             clear_rendered_lines(rendered_lines)
-            rendered_lines = render_picker_frame(worlds, selected)
             print()
             print(ok(f"✅ Selected: [{worlds[selected].index:02d}] {worlds[selected].name} ({worlds[selected].folder})"))
             return worlds[selected]
@@ -194,7 +195,6 @@ def interactive_pick_world(worlds: list[WorldEntry]) -> WorldEntry:
                     continue
                 if 1 <= index <= len(worlds):
                     clear_rendered_lines(rendered_lines)
-                    rendered_lines = render_picker_frame(worlds, index - 1)
                     print()
                     print(ok(f"✅ Selected: [{worlds[index - 1].index:02d}] {worlds[index - 1].name} ({worlds[index - 1].folder})"))
                     return worlds[index - 1]
