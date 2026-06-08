@@ -113,11 +113,11 @@ cd
 
 ## 🔎 Inspect 交互式工具
 
-如果你想进一步查看 `level.dat`、`config`、玩家状态、背包内容、`db` 模式分类这些更深入的信息，可以看这里：
+如果你想进一步查看存档中的 `level.dat`、`config`、`玩家状态`、`背包内容`、`db模式分类`这些更深入的信息，可以看这里：
 
 - [inspect/README.md](inspect/README.md)
 
-这里收敛了一套交互式 Python 工具，支持：
+这里整理了一套交互式 Python 工具，支持：
 - ⬆️⬇️ 上下键 + 回车选择存档
 - 🔢 `--index` 按顺序选择
 - 📁 `--folder` 按文件夹名直接选择
