@@ -2,12 +2,12 @@
 
 # 🎮 Minecraft 网易版存档列表脚本
 
-[![Gitee](https://img.shields.io/badge/Gitee-Repository-red?logo=gitee)](https://gitee.com/vincent-zyu/wangyi-mc-bedrock-check-world)
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/VincentZyu233/wangyi-mc-bedrock-check-world)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/VincentZyu233/wangyi-mc-bedrock-check-world)
+[![Gitee](https://img.shields.io/badge/Gitee-Repository-c41e3a?style=for-the-badge&logo=gitee&logoColor=white)](https://gitee.com/vincent-zyu/wangyi-mc-bedrock-check-world)
 
 一个用Python和Powershell脚本 写的 网易我的世界电脑版存档查看的 cli工具 的 仓库。
-> 由于脚本中使用了绝对路径（通过 `%APPDATA%` 获取），你可以将此脚本放在任何地方执行，它都能正确找到并运行捏。
-> 如果你更喜欢GUI(图形用户接口界面)，可以去这里：`https://github.com/VincentZyuApps/wangyi-mc-bedrock-check-world`
+
+> 如果你更喜欢GUI(图形用户接口界面)，可以去这里：[`https://github.com/VincentZyuApps/wangyi-mc-bedrock-check-world`](https://github.com/VincentZyuApps/wangyi-mc-bedrock-check-world)
 
 ## 🖼️ 效果预览
 
@@ -17,6 +17,8 @@
 
 
 ## ▶️ 运行方式 (PowerShell)
+
+> 由于脚本中使用了绝对路径（通过 `%APPDATA%` 获取），你可以将此脚本放在任何地方执行，它都能正确找到并运行捏。
 
 ### 1️⃣ 方式 1：直接通过网络运行 (无需下载)
 你可以直接远程读取并执行脚本，无需手动下载文件：
